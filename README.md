@@ -213,21 +213,6 @@ Para más información sobre Terraform, visita [terraform.io](https://www.terraf
    - `private_subnet = module.vpc.private_subnet_ids`
 4. `MODULES/ALB_AUTOSCALING` usa esto en ALB y ASG.
 
-## 🛡️ Solución de error típico: prompt para `var.private_subnet`
-
-### Causa
-En `ENVIROMENT/DEV/variables.tf` se tenía:
-- `variable "private_subnet" { type = list(string) }`
-- `variable "public_subnet" { type = list(string) }`
-
-Terraform pedía estos valores porque los definió como inputs sin default, pero en el flujo correcto ya vienen de `module.vpc.*`.
-
-### Corrección
-En `ENVIROMENT/DEV/variables.tf`, eliminar las variables redundantes:
-- `vpc_id`, `public_subnet`, `private_subnet`.
-
-Dejar solo las variables que realmente se pasan desde `terraform.tfvars`.
-
 ## 📦 Buenas prácticas
 
 - Usar `terraform fmt -recursive` para formato uniforme.
